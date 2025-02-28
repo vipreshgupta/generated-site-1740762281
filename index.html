@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ludo Game</title>
+    <style>
+        /* Color Scheme */
+        :root {
+            --red: #FF4B4B;
+            --green: #4CAF50;
+            --yellow: #FFEB3B;
+            --blue: #2196F3;
+            --light-gray: #F5F5F5;
+            --dark-gray: #424242;
+            --teal: #00BCD4;
+            --orange: #FF9800;
+        }
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--dark-gray);
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background-color: var(--teal);
+            border-radius: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 50px 0;
+            background-color: var(--light-gray);
+        }
+
+        .hero img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .play-now-btn {
+            background-color: var(--orange);
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .play-now-btn:hover {
+            background-color: var(--teal);
+        }
+
+        /* Highlights Section */
+        .highlights {
+            display: flex;
+            justify-content: space-around;
+            padding: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .highlight-item {
+            text-align: center;
+            width: 30%;
+            margin-bottom: 20px;
+        }
+
+        .highlight-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: var(--teal);
+        }
+
+        /* Game Interface */
+        .game-interface {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .ludo-board {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            background-color: #fff;
+            border: 2px solid var(--dark-gray);
+            margin-bottom: 20px;
+        }
+
+        .player-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        .player {
+            display: flex;
+            align-items: center;
+        }
+
+        .player img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .roll-dice-btn {
+            background-color: var(--blue);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .roll-dice-btn:hover {
+            background-color: var(--teal);
+        }
+
+        .chat-box {
+            width: 100%;
+            max-width: 500px;
+            height: 200px;
+            border: 1px solid var(--dark-gray);
+            overflow-y: scroll;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chat-input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid var(--dark-gray);
+            border-radius: 5px;
+        }
+
+        .send-btn {
+            padding: 10px 20px;
+            background-color: var(--green);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background-color: var(--teal);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .highlights {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .highlight-item {
+                width: 80%;
+            }
+
+            .ludo-board {
+                width: 300px;
+                height: 300px;
+            }
+
+            .player-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .player {
+                margin-bottom: 10px;
+            }
+
+            .chat-box {
+                width: 90%;
+            }
+
+            .chat-input {
+                width: 60%;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .ludo-board {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container">
+            <a href="#" aria-label="Home">Home</a>
+            <a href="#" aria-label="Play">Play</a>
+            <a href="#" aria-label="Rules">Rules</a>
+            <a href="#" aria-label="Leaderboard">Leaderboard</a>
+            <a href="#" aria-label="Settings">Settings</a>
+            <a href="#" aria-label="Support">Support</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <img src="https://picsum.photos/id/10/800/400" alt="Ludo Game" aria-label="Ludo Game Image">
+            <button class="play-now-btn" aria-label="Play Now">Play Now</button>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights">
+        <div class="highlight-item">
+            <img src="https://picsum.photos/id/20/400/200" alt="Single Player" aria-label="Single Player Mode">
+            <h3>Single Player</h3>
+            <p>Play against AI.</p>
+        </div>
+        <div class="highlight-item">
+            <img src="https://picsum.photos/id/30/400/200" alt="Multiplayer" aria-label="Multiplayer Mode">
+            <h3>Multiplayer</h3>
+            <p>Play with friends.</p>
+        </div>
+        <div class="highlight-item">
+            <img src="https://picsum.photos/id/40/400/200" alt="Achievements" aria-label="Achievements">
+            <h3>Achievements</h3>
+            <p>Unlock achievements.</p>
+        </div>
+    </section>
+
+    <!-- Game Interface -->
+    <section class="game-interface">
+        <div class="ludo-board" aria-label="Ludo Board">
+            <!-- Ludo board SVG or Canvas here -->
+        </div>
+        <div class="player-info">
+            <div class="player">
+                <img src="https://picsum.photos/id/50/50/50" alt="Player 1" aria-label="Player 1 Avatar">
+                <span>Player 1</span>
+            </div>
+            <div class="player">
+                <img src="https://picsum.photos/id/60/50/50" alt="Player 2" aria-label="Player 2 Avatar">
+                <span>Player 2</span>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="roll-dice-btn" aria-label="Roll Dice">Roll Dice</button>
+        </div>
+        <div class="chat-box" aria-label="Chat Box">
+            <!-- Chat messages will appear here -->
+        </div>
+        <input type="text" class="chat-input" placeholder="Type your message..." aria-label="Chat Input">
+        <button class="send-btn" aria-label="Send Message">Send</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="#" aria-label="About">About</a>
+            <a href="#" aria-label="Contact">Contact</a>
+            <a href="#" aria-label="Privacy Policy">Privacy Policy</a>
+            <a href="#" aria-label="Terms of Service">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for interactivity will go here
+        document.addEventListener('DOMContentLoaded', function() {
+            const rollDiceBtn = document.querySelector('.roll-dice-btn');
+            const chatInput = document.querySelector('.chat-input');
+            const sendBtn = document.querySelector('.send-btn');
+            const chatBox = document.querySelector('.chat-box');
+
+            // Roll Dice Button Click Event
+            rollDiceBtn.addEventListener('click', function() {
+                alert('Dice Rolled!'); // Placeholder for dice roll logic
+            });
+
+            // Send Message Button Click Event
+            sendBtn.addEventListener('click', function() {
+                const message = chatInput.value;
+                if (message.trim() !== '') {
+                    const newMessage = document.createElement('p');
+                    newMessage.textContent = message;
+                    chatBox.appendChild(newMessage);
+                    chatInput.value = ''; // Clear input
+                    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+                }
+            });
+
+            // Optional: Handle Enter key press in chat input
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendBtn.click(); // Trigger send button click
+                }
+            });
+        });
+    </script>
+</body>
+</html>
